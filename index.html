@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolVerse Pro - Advanced Web Utilities, CGPA & Love Calculator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <h1 class="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 flex items-center gap-2 cursor-pointer" onclick="switchTab('cgpa')">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-500"></i> ToolVerse <span class="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/30 font-semibold uppercase">Pro</span>
+            </h1>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1">
+                    <i class="fa-solid fa-bolt text-xs"></i> <span class="hidden sm:inline">100% Free Suite</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- TOP ADVERTISEMENT BANNER (728x90) -->
+    <div class="max-w-7xl mx-auto w-full px-4 mt-4">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-2.5 text-center text-xs text-slate-400 min-h-[90px] flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
+            <span class="absolute top-1 left-3 text-[9px] text-slate-500 uppercase tracking-widest font-mono">Sponsored Banner</span>
+            <div id="ad-top-banner" class="w-full flex justify-center items-center mt-2">
+                <div class="bg-gradient-to-r from-indigo-900/30 via-slate-900 to-indigo-900/30 border border-dashed border-indigo-500/40 text-indigo-300 p-2.5 rounded-xl text-xs w-full max-w-[728px] h-[80px] flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-rectangle-ad text-lg text-indigo-400"></i>
+                    <span class="font-medium text-slate-300">[ Paste Adsterra 728x90 Banner Script Here ]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout Container -->
+    <main class="max-w-7xl mx-auto px-3 sm:px-4 py-5 flex-grow w-full grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <!-- Sidebar Navigation Menu -->
+        <aside class="lg:col-span-1 bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 h-fit space-y-4 shadow-lg">
+            <div>
+                <h2 class="text-[11px] uppercase font-bold text-slate-400 tracking-wider mb-2.5 px-1">Utility Modules</h2>
+                
+                <div class="flex lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
+                    <button onclick="switchTab('cgpa')" id="tab-btn-cgpa" class="tab-btn shrink-0 bg-indigo-600 text-white p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition shadow-md whitespace-nowrap">
+                        <i class="fa-solid fa-graduation-cap w-4 text-indigo-200"></i> CGPA Calculator
+                    </button>
+                    <button onclick="switchTab('love')" id="tab-btn-love" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-heart-pulse w-4 text-rose-400"></i> Love Calculator
+                    </button>
+                    <button onclick="switchTab('compressor')" id="tab-btn-compressor" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-file-image w-4 text-indigo-200"></i> Image Resizer & Compressor
+                    </button>
+                    <button onclick="switchTab('codeeditor')" id="tab-btn-codeeditor" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-code w-4 text-amber-400"></i> HTML Code Previewer
+                    </button>
+                    <button onclick="switchTab('wordcount')" id="tab-btn-wordcount" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-font w-4 text-emerald-400"></i> SEO Word Counter
+                    </button>
+                    <button onclick="switchTab('password')" id="tab-btn-password" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-key w-4 text-cyan-400"></i> Password Gen
+                    </button>
+                    <button onclick="switchTab('qrcode')" id="tab-btn-qrcode" class="tab-btn shrink-0 bg-slate-800 text-slate-300 p-3 rounded-xl text-left font-medium text-xs sm:text-sm flex items-center gap-2.5 transition hover:bg-slate-700 hover:text-white whitespace-nowrap">
+                        <i class="fa-solid fa-qrcode w-4 text-purple-400"></i> QR Generator
+                    </button>
+                </div>
+            </div>
+
+            <!-- SIDEBAR AD CONTAINER (300x250) -->
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-500 min-h-[250px] flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="absolute top-1 left-2 text-[9px] text-slate-600 uppercase tracking-widest font-mono">Sidebar Ad</span>
+                <div id="ad-sidebar-banner" class="w-full flex justify-center items-center mt-2">
+                    <div class="bg-slate-900/70 border border-dashed border-slate-800 text-slate-400 p-4 rounded-xl text-xs w-full min-h-[210px] flex flex-col items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-rectangle-ad text-2xl text-slate-500 mb-1"></i>
+                        <span class="font-medium">[ 300x250 Sidebar Banner ]</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Main Tool Section -->
+        <section class="lg:col-span-3 bg-slate-900 p-4 sm:p-7 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+
+            <div class="space-y-6">
+
+                <!-- 1. CGPA CALCULATOR MODULE -->
+                <div id="tool-cgpa" class="tool-content">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> Semester CGPA Calculator
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Add course codes, credits, and grades to calculate your exact semester CGPA.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div id="course-rows-container" class="space-y-3">
+                            <!-- Initial Row -->
+                            <div class="course-row grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-3 rounded-xl border border-slate-800 items-center">
+                                <div class="sm:col-span-4">
+                                    <input type="text" placeholder="Course Code (e.g. CSE-101)" class="course-code w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <input type="number" step="0.5" min="0.5" placeholder="Credit (e.g. 3)" class="course-credit w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div class="sm:col-span-4">
+                                    <select class="course-grade w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                                        <option value="4.00">A+ (4.00)</option>
+                                        <option value="3.75">A- (3.75)</option>
+                                        <option value="3.50">B+ (3.50)</option>
+                                        <option value="3.25">B (3.25)</option>
+                                        <option value="3.00">B- (3.00)</option>
+                                        <option value="2.75">C+ (2.75)</option>
+                                        <option value="2.50">C- (2.50)</option>
+                                        <option value="2.25">D (2.25)</option>
+                                        <option value="0.00">F (0.00)</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-1 text-center">
+                                    <button onclick="removeCourseRow(this)" class="text-rose-400 hover:text-rose-300 p-2 text-xs"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="addCourseRow()" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold py-2.5 px-4 rounded-xl text-xs transition border border-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Add Course
+                            </button>
+                            <button onclick="calculateCGPA()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 px-6 rounded-xl text-xs transition shadow-lg flex items-center gap-1.5">
+                                <i class="fa-solid fa-calculator"></i> Calculate CGPA
+                            </button>
+                        </div>
+
+                        <!-- Result Box -->
+                        <div id="cgpa-result-box" class="hidden mt-4 bg-slate-950 p-5 rounded-2xl border border-indigo-500/30 text-center space-y-3">
+                            <h3 class="text-sm font-semibold text-slate-300">Calculation Summary</h3>
+                            <div class="text-3xl font-black text-emerald-400" id="final-cgpa-val">0.00</div>
+                            <p class="text-xs text-slate-400" id="total-credit-summary">Total Credits: 0 | Total Points: 0</p>
+                            
+                            <div class="pt-2">
+                                <button onclick="downloadCGPAResult()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl text-xs transition shadow-md inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-download"></i> Download Result Sheet (TXT)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. UNIQUE LOVE CALCULATOR MODULE -->
+                <div id="tool-love" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-rose-400 flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse"></i> Unique Love Calculator
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Check your compatibility score with a fun interactive algorithm.</p>
+                    </div>
+
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 max-w-xl mx-auto">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1">Your Name:</label>
+                                <input type="text" id="lover-1" placeholder="e.g. Abdullah" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1">Partner's Name:</label>
+                                <input type="text" id="lover-2" placeholder="e.g. Partner Name" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
+                            </div>
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <button onclick="calculateLove()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-xl text-xs sm:text-sm transition shadow-lg inline-flex items-center gap-2">
+                                <i class="fa-solid fa-heart"></i> Calculate Compatibility
+                            </button>
+                        </div>
+
+                        <!-- Love Result Box -->
+                        <div id="love-result-box" class="hidden mt-4 bg-slate-900 p-5 rounded-xl border border-rose-500/30 text-center space-y-3">
+                            <p class="text-xs text-slate-400" id="love-names-display">Compatibility between X & Y</p>
+                            <div class="text-4xl font-black text-rose-400" id="love-score-val">0%</div>
+                            <p class="text-xs font-medium text-emerald-400 italic" id="love-quote-display">"Made for each other!"</p>
+
+                            <div class="pt-2">
+                                <button onclick="downloadLoveResult()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-5 rounded-lg text-xs transition shadow-md inline-flex items-center gap-1.5">
+                                    <i class="fa-solid fa-download"></i> Download Love Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ADVANCED IMAGE RESIZER & COMPRESSOR -->
+                <div id="tool-compressor" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                            <i class="fa-solid fa-file-image"></i> Advanced Image Resizer & Compressor
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Change image dimensions, convert format, and reduce file size instantly.</p>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="relative border-2 border-dashed border-slate-700 hover:border-indigo-500 bg-slate-950/60 rounded-2xl p-6 text-center transition cursor-pointer">
+                            <input type="file" id="img-input" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div class="flex flex-col items-center pointer-events-none">
+                                <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-400 mb-2"></i>
+                                <p class="text-sm font-semibold text-slate-200">Click to upload or drag & drop image</p>
+                                <p class="text-[11px] text-slate-500 mt-1">PNG, JPG, WEBP formats supported</p>
+                            </div>
+                        </div>
+                        
+                        <div id="img-preview-box" class="hidden space-y-5 bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-xs">
+                                <div>
+                                    <label class="block text-slate-400 mb-1">Width (px):</label>
+                                    <input type="number" id="img-width" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-indigo-300 font-mono text-xs focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-400 mb-1">Height (px):</label>
+                                    <input type="number" id="img-height" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-indigo-300 font-mono text-xs focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div class="flex items-center gap-2 pt-4">
+                                    <input type="checkbox" id="aspect-ratio" checked class="accent-indigo-500 h-4 w-4 rounded">
+                                    <label for="aspect-ratio" class="text-slate-300 cursor-pointer">Maintain Ratio</label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-xs">
+                                <div>
+                                    <label class="block text-slate-300 mb-1.5">Quality: <span id="quality-val" class="font-bold text-indigo-400">75</span>%</label>
+                                    <input type="range" id="quality-slider" min="10" max="100" value="75" class="w-full accent-indigo-500 cursor-pointer">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 mb-1.5">Format:</label>
+                                    <select id="export-format" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 text-xs focus:outline-none focus:border-indigo-500">
+                                        <option value="image/jpeg">JPG / JPEG</option>
+                                        <option value="image/png">PNG</option>
+                                        <option value="image/webp">WEBP</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                    <p class="text-xs text-slate-400 mb-1">Original</p>
+                                    <p id="orig-size" class="font-bold text-xs text-indigo-400 mb-2">- KB</p>
+                                    <img id="orig-img" class="max-h-40 mx-auto rounded-lg object-contain">
+                                </div>
+                                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                    <p class="text-xs text-slate-400 mb-1">Processed</p>
+                                    <p id="comp-size" class="font-bold text-xs text-emerald-400 mb-2">- KB</p>
+                                    <img id="comp-img" class="max-h-40 mx-auto rounded-lg object-contain">
+                                </div>
+                            </div>
+
+                            <div class="text-center pt-2">
+                                <a id="download-btn" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-xl text-xs sm:text-sm transition shadow-lg cursor-pointer">
+                                    <i class="fa-solid fa-download"></i> Download Processed Image
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. HTML CODE LIVE PREVIEWER -->
+                <div id="tool-codeeditor" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                                <i class="fa-solid fa-code"></i> HTML/CSS Live Previewer
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Test HTML/CSS code with real-time mobile & desktop view toggle.</p>
+                        </div>
+                        
+                        <div class="flex items-center bg-slate-950 p-1 rounded-lg border border-slate-800 w-fit">
+                            <button onclick="setViewport('mobile')" id="vp-mobile" class="px-2.5 py-1 text-[11px] rounded-md font-medium text-slate-400 hover:text-white transition flex items-center gap-1">
+                                <i class="fa-solid fa-mobile-screen-button"></i> Mobile
+                            </button>
+                            <button onclick="setViewport('tablet')" id="vp-tablet" class="px-2.5 py-1 text-[11px] rounded-md font-medium text-slate-400 hover:text-white transition flex items-center gap-1">
+                                <i class="fa-solid fa-tablet-screen-button"></i> Tablet
+                            </button>
+                            <button onclick="setViewport('desktop')" id="vp-desktop" class="px-2.5 py-1 text-[11px] rounded-md font-medium bg-indigo-600 text-white transition flex items-center gap-1">
+                                <i class="fa-solid fa-desktop"></i> Full
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-terminal text-amber-400"></i> Source Code Input:
+                                </label>
+                                <button onclick="loadSampleCode()" class="text-[10px] text-indigo-400 hover:underline">Load Sample</button>
+                            </div>
+                            <textarea id="code-input" class="w-full h-64 lg:h-80 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-emerald-400 focus:outline-none focus:border-indigo-500 leading-relaxed shadow-inner" placeholder="Type your HTML/CSS code here..."></textarea>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <label class="w-full text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye text-indigo-400"></i> Live Screen Output:
+                            </label>
+                            <div id="preview-wrapper" class="w-full h-64 lg:h-80 bg-white rounded-xl border border-slate-800 overflow-hidden shadow-xl transition-all duration-300 mx-auto">
+                                <iframe id="code-preview-frame" class="w-full h-full border-0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. WORD & SEO TEXT COUNTER -->
+                <div id="tool-wordcount" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                            <i class="fa-solid fa-font"></i> SEO Word & Text Analyzer
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Detailed text analysis for content writers, students, and bloggers.</p>
+                    </div>
+
+                    <textarea id="text-input" placeholder="Type or paste your text content here..." class="w-full h-44 bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-indigo-500 mb-4 shadow-inner"></textarea>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-indigo-400" id="word-count">0</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Words</p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-emerald-400" id="char-count">0</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Characters</p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-amber-400" id="char-nospace">0</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">No Spaces</p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-cyan-400" id="sentence-count">0</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Sentences</p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-purple-400" id="paragraph-count">0</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Paragraphs</p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl text-center border border-slate-800">
+                            <p class="text-xl font-black text-rose-400" id="read-time">0m</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Read Time</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. SECURE PASSWORD GENERATOR -->
+                <div id="tool-password" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                            <i class="fa-solid fa-key"></i> Strong Password Generator
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Generate randomized secure passwords with customizable parameters.</p>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="bg-slate-900 p-3.5 rounded-xl flex items-center justify-between border border-slate-800 shadow-inner">
+                            <span id="pwd-result" class="font-mono text-sm sm:text-base text-emerald-400 tracking-wider select-all break-all">Click Generate Below</span>
+                            <button onclick="copyPassword()" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1 shrink-0 ml-2">
+                                <i class="fa-regular fa-copy"></i> Copy
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1.5">Length: <span id="pwd-len-val" class="font-bold text-indigo-400">14</span> characters</label>
+                                <input type="range" id="pwd-length" min="6" max="32" value="14" class="w-full accent-indigo-500 cursor-pointer">
+                            </div>
+
+                            <button onclick="generatePassword()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-xs sm:text-sm shadow-lg">
+                                Generate Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. QR CODE GENERATOR -->
+                <div id="tool-qrcode" class="tool-content hidden">
+                    <div class="border-b border-slate-800 pb-3.5 mb-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-indigo-300 flex items-center gap-2">
+                            <i class="fa-solid fa-qrcode"></i> Instant QR Code Generator
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Convert text or URLs into downloadable QR codes.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <input type="text" id="qr-input" placeholder="Enter URL or text here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-indigo-500 shadow-inner">
+                        <button onclick="generateQR()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-xl text-xs sm:text-sm transition shadow-lg">
+                            Generate QR Code
+                        </button>
+                        
+                        <div id="qr-box" class="mt-4 flex justify-center bg-white p-4 rounded-2xl w-fit mx-auto min-h-[160px] min-w-[160px] items-center shadow-xl"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BOTTOM IN-ARTICLE AD CONTAINER -->
+            <div class="mt-8 bg-slate-950 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-500 min-h-[100px] flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
+                <span class="absolute top-1 left-3 text-[9px] text-slate-600 uppercase tracking-widest font-mono">In-Content Ad</span>
+                <div id="ad-bottom-banner" class="w-full flex justify-center items-center mt-2">
+                    <div class="bg-slate-900/60 border border-dashed border-slate-800 text-slate-400 p-3 rounded-lg text-xs w-full max-w-[728px] h-[90px] flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rectangle-ad text-base text-slate-500"></i>
+                        <span>[ Paste In-Article Ad Script Here ]</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-5 text-center text-xs text-slate-500 mt-auto">
+        <p>&copy; 2026 ToolVerse Pro. Free Responsive Utility Suite.</p>
+    </footer>
+
+    <!-- JavaScript Application Core Logic -->
+    <script>
+        // Tab Switcher Controller
+        function switchTab(tabId) {
+            document.querySelectorAll('.tool-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                el.classList.add('bg-slate-800', 'text-slate-300');
+            });
+
+            const targetTool = document.getElementById('tool-' + tabId);
+            if (targetTool) {
+                targetTool.classList.remove('hidden');
+            }
+
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+            }
+        }
+
+        // --- CGPA Calculator Logic ---
+        function addCourseRow() {
+            const container = document.getElementById('course-rows-container');
+            const newRow = document.createElement('div');
+            newRow.className = "course-row grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-3 rounded-xl border border-slate-800 items-center";
+            newRow.innerHTML = `
+                <div class="sm:col-span-4">
+                    <input type="text" placeholder="Course Code (e.g. CSE-102)" class="course-code w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="sm:col-span-3">
+                    <input type="number" step="0.5" min="0.5" placeholder="Credit" class="course-credit w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <select class="course-grade w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                        <option value="4.00">A+ (4.00)</option>
+                        <option value="3.75">A- (3.75)</option>
+                        <option value="3.50">B+ (3.50)</option>
+                        <option value="3.25">B (3.25)</option>
+                        <option value="3.00">B- (3.00)</option>
+                        <option value="2.75">C+ (2.75)</option>
+                        <option value="2.50">C- (2.50)</option>
+                        <option value="2.25">D (2.25)</option>
+                        <option value="0.00">F (0.00)</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-1 text-center">
+                    <button onclick="removeCourseRow(this)" class="text-rose-400 hover:text-rose-300 p-2 text-xs"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function removeCourseRow(btn) {
+            const rows = document.querySelectorAll('.course-row');
+            if (rows.length > 1) {
+                btn.closest('.course-row').remove();
+            } else {
+                alert('At least one course row is required.');
+            }
+        }
+
+        let lastCGPAResultText = "";
+
+        function calculateCGPA() {
+            const rows = document.querySelectorAll('.course-row');
+            let totalPoints = 0;
+            let totalCredits = 0;
+            let summaryDetails = "--- CGPA RESULT SHEET ---\n\n";
+
+            rows.forEach((row, index) => {
+                const code = row.querySelector('.course-code').value.trim() || `Course ${index + 1}`;
+                const credit = parseFloat(row.querySelector('.course-credit').value);
+                const gradePoint = parseFloat(row.querySelector('.course-grade').value);
+
+                if (!isNaN(credit) && credit > 0) {
+                    totalCredits += credit;
+                    totalPoints += (credit * gradePoint);
+                    summaryDetails += `${code} | Credit: ${credit} | Grade Point: ${gradePoint}\n`;
+                }
+            });
+
+            if (totalCredits === 0) {
+                alert('Please enter valid course credits.');
+                return;
+            }
+
+            const cgpa = (totalPoints / totalCredits).toFixed(2);
+            document.getElementById('final-cgpa-val').innerText = cgpa;
+            document.getElementById('total-credit-summary').innerText = `Total Credits: ${totalCredits} | Total Points: ${totalPoints.toFixed(2)}`;
+            document.getElementById('cgpa-result-box').classList.remove('hidden');
+
+            summaryDetails += `\n========================\nFinal Semester CGPA: ${cgpa}\nTotal Earned Credits: ${totalCredits}\nGenerated via ToolVerse Pro`;
+            lastCGPAResultText = summaryDetails;
+        }
+
+        function downloadCGPAResult() {
+            if (!lastCGPAResultText) return;
+            const blob = new Blob([lastCGPAResultText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'CGPA_Result_Sheet.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // --- Unique Love Calculator Logic ---
+        let lastLoveResultText = "";
+
+        function calculateLove() {
+            const name1 = document.getElementById('lover-1').value.trim();
+            const name2 = document.getElementById('lover-2').value.trim();
+
+            if (!name1 || !name2) {
+                alert('Please enter both names!');
+                return;
+            }
+
+            // Fun unique algorithm based on string lengths
+            const combined = (name1 + name2).toLowerCase();
+            let hash = 0;
+            for (let i = 0; i < combined.length; i++) {
+                hash += combined.charCodeAt(i);
+            }
+            const score = (hash % 35) + 65; // Ensures score between 65% and 99%
+
+            document.getElementById('love-names-display').innerText = `${name1} & ${name2}`;
+            document.getElementById('love-score-val').innerText = score + '%';
+            
+            let quote = "A perfect match made in heaven!";
+            if (score < 75) quote = "Good chemistry, with room for great adventures!";
+            else if (score < 85) quote = "Strong bond and wonderful understanding!";
+            document.getElementById('love-quote-display').innerText = `"${quote}"`;
+
+            document.getElementById('love-result-box').classList.remove('hidden');
+
+            lastLoveResultText = `--- LOVE COMPATIBILITY REPORT ---\n\nCouple: ${name1} & ${name2}\nCompatibility Score: ${score}%\nRemark: "${quote}"\n\nGenerated via ToolVerse Pro`;
+        }
+
+        function downloadLoveResult() {
+            if (!lastLoveResultText) return;
+            const blob = new Blob([lastLoveResultText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Love_Compatibility_Report.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // --- Image Resizer Logic ---
+        const imgInput = document.getElementById('img-input');
+        const imgWidth = document.getElementById('img-width');
+        const imgHeight = document.getElementById('img-height');
+        const aspectRatio = document.getElementById('aspect-ratio');
+        const qualitySlider = document.getElementById('quality-slider');
+        const exportFormat = document.getElementById('export-format');
+        
+        let originalImg = new Image();
+        let originalRatio = 1;
+
+        if (imgInput) {
+            imgInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                document.getElementById('orig-size').innerText = (file.size / 1024).toFixed(1) + ' KB';
+                const imageUrl = URL.createObjectURL(file);
+                document.getElementById('orig-img').src = imageUrl;
+
+                originalImg = new Image();
+                originalImg.src = imageUrl;
+                originalImg.onload = () => {
+                    originalRatio = originalImg.width / originalImg.height;
+                    imgWidth.value = originalImg.width;
+                    imgHeight.value = originalImg.height;
+                    document.getElementById('img-preview-box').classList.remove('hidden');
+                    processImage();
+                };
+            });
+        }
+
+        if (imgWidth) {
+            imgWidth.addEventListener('input', () => {
+                if (aspectRatio.checked && imgWidth.value && originalRatio) {
+                    imgHeight.value = Math.round(imgWidth.value / originalRatio);
+                }
+                processImage();
+            });
+        }
+
+        if (imgHeight) {
+            imgHeight.addEventListener('input', () => {
+                if (aspectRatio.checked && imgHeight.value && originalRatio) {
+                    imgWidth.value = Math.round(imgHeight.value * originalRatio);
+                }
+                processImage();
+            });
+        }
+
+        if (qualitySlider) qualitySlider.addEventListener('input', (e) => {
+            document.getElementById('quality-val').innerText = e.target.value;
+            processImage();
+        });
+
+        if (exportFormat) exportFormat.addEventListener('change', processImage);
+
+        function processImage() {
+            if (!originalImg.src) return;
+
+            const canvas = document.createElement('canvas');
+            const targetWidth = parseInt(imgWidth.value) || originalImg.width;
+            const targetHeight = parseInt(imgHeight.value) || originalImg.height;
+
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImg, 0, 0, targetWidth, targetHeight);
+
+            const quality = qualitySlider.value / 100;
+            const format = exportFormat.value;
+
+            canvas.toBlob((blob) => {
+                if (!blob) return;
+                const url = URL.createObjectURL(blob);
+                document.getElementById('comp-img').src = url;
+                document.getElementById('comp-size').innerText = (blob.size / 1024).toFixed(1) + ' KB';
+
+                const downloadBtn = document.getElementById('download-btn');
+                downloadBtn.href = url;
+                const ext = format === 'image/png' ? 'png' : format === 'image/webp' ? 'webp' : 'jpg';
+                downloadBtn.download = `resized_image.${ext}`;
+            }, format, quality);
+        }
+
+        // --- Code Previewer Logic ---
+        const codeInput = document.getElementById('code-input');
+        const codeFrame = document.getElementById('code-preview-frame');
+        const previewWrapper = document.getElementById('preview-wrapper');
+
+        function updatePreview() {
+            try {
+                const doc = codeFrame.contentDocument || codeFrame.contentWindow.document;
+                doc.open();
+                doc.write(codeInput.value);
+                doc.close();
+            } catch (err) {}
+        }
+
+        if (codeInput) {
+            codeInput.addEventListener('input', updatePreview);
+        }
+
+        function setViewport(mode) {
+            document.getElementById('vp-mobile').className = "px-2.5 py-1 text-[11px] rounded-md font-medium text-slate-400 hover:text-white transition flex items-center gap-1";
+            document.getElementById('vp-tablet').className = "px-2.5 py-1 text-[11px] rounded-md font-medium text-slate-400 hover:text-white transition flex items-center gap-1";
+            document.getElementById('vp-desktop').className = "px-2.5 py-1 text-[11px] rounded-md font-medium text-slate-400 hover:text-white transition flex items-center gap-1";
+
+            document.getElementById('vp-' + mode).className = "px-2.5 py-1 text-[11px] rounded-md font-medium bg-indigo-600 text-white transition flex items-center gap-1";
+
+            if (mode === 'mobile') {
+                previewWrapper.style.maxWidth = '375px';
+            } else if (mode === 'tablet') {
+                previewWrapper.style.maxWidth = '600px';
+            } else {
+                previewWrapper.style.maxWidth = '100%';
+            }
+        }
+
+        function loadSampleCode() {
+            codeInput.value = `<div style="padding:20px; text-align:center; font-family:sans-serif; background:#f1f5f9; border-radius:12px;">\n  <h2 style="color:#4f46e5; margin-bottom:8px;">Mobile Responsive Card</h2>\n  <p style="color:#64748b; font-size:14px;">This is a live output test inside ToolVerse code suite!</p>\n  <button style="background:#10b981; color:white; border:none; padding:10px 20px; border-radius:8px; margin-top:10px; cursor:pointer;">Click Me</button>\n</div>`;
+            updatePreview();
+        }
+
+        // --- Word Counter ---
+        const textInput = document.getElementById('text-input');
+        if (textInput) {
+            textInput.addEventListener('input', () => {
+                const txt = textInput.value;
+                const trimmed = txt.trim();
+                const words = trimmed ? trimmed.split(/\s+/).filter(Boolean).length : 0;
+                const chars = txt.length;
+                const charsNoSpace = txt.replace(/\s+/g, '').length;
+                const sentences = trimmed ? trimmed.split(/[.!?]+/).filter(Boolean).length : 0;
+                const paragraphs = trimmed ? trimmed.split(/\n+/).filter(Boolean).length : 0;
+                const readTime = Math.ceil(words / 200);
+
+                document.getElementById('word-count').innerText = words;
+                document.getElementById('char-count').innerText = chars;
+                document.getElementById('char-nospace').innerText = charsNoSpace;
+                document.getElementById('sentence-count').innerText = sentences;
+                document.getElementById('paragraph-count').innerText = paragraphs;
+                document.getElementById('read-time').innerText = readTime + 'm';
+            });
+        }
+
+        // --- Password Generator ---
+        const pwdLength = document.getElementById('pwd-length');
+        if (pwdLength) {
+            pwdLength.addEventListener('input', (e) => document.getElementById('pwd-len-val').innerText = e.target.value);
+        }
+
+        function generatePassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&*()_+-=";
+            let pwd = "";
+            const len = parseInt(pwdLength.value) || 14;
+            for (let i = 0; i < len; i++) {
+                pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('pwd-result').innerText = pwd;
+        }
+
+        function copyPassword() {
+            const pwd = document.getElementById('pwd-result').innerText;
+            if (pwd && pwd !== 'Click Generate Below') {
+                navigator.clipboard.writeText(pwd);
+                alert('Copied to clipboard!');
+            }
+        }
+
+        // --- QR Code Generator ---
+        function generateQR() {
+            const val = document.getElementById('qr-input').value.trim();
+            const box = document.getElementById('qr-box');
+            box.innerHTML = "";
+            if (val) {
+                new QRCode(box, { text: val, width: 140, height: 140 });
+            }
+        }
+
+        // Initial load
+        loadSampleCode();
+    </script>
+</body>
+</html>
